@@ -1,0 +1,94 @@
+<nz-collapse>
+    <nz-collapse-panel nzHeader="Thông tin chung">
+        <form nz-form class="common-info" [formGroup]="parkingFg">
+            <nz-form-item>
+                <nz-form-label [nzSpan]="6" nzFor="name">Tên bãi xe</nz-form-label>
+                <nz-form-control [nzSpan]="14">
+                    <input nz-input name="name" type="text" id="name" formControlName="name">
+                </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+                <nz-form-label [nzSpan]="6" nzFor="address">Địa chỉ</nz-form-label>
+                <nz-form-control [nzSpan]="14">
+                    <input nz-input name="address" type="text" id="address" formControlName="address">
+                </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+                <nz-form-label [nzSpan]="6" nzFor="area">Khu vực</nz-form-label>
+                <nz-form-control [nzSpan]="14">
+                    <input nz-input name="area" type="text" id="area" formControlName="area">
+                </nz-form-control>
+            </nz-form-item>
+            <div class="button-group">
+                <button nz-button nzType="primary" [disabled]="!parkingFg.valid" class="right-button">Lưu</button>
+            </div>
+        </form>
+    </nz-collapse-panel>
+    <nz-collapse-panel nzHeader="Cài đặt làn xe" >
+        <nz-collapse [nzAccordion]="true" *ngIf="parking && parking.parkingLanes.length > 0;else noLanes">
+            <ng-container *ngFor="let lane of parking.parkingLanes; let i = index">
+                <nz-collapse-panel [nzHeader]="'Làn ' + (i+1).toFixed(0) + ': ' + lane.name" [nzExtra]="settingTemplate">
+                    <div class="inline-infomation">
+                        <div class="label">Trạng thái</div>
+                        <div class="value">{{lane.active}}</div>
+                    </div>
+                    <div class="inline-infomation" *ngIf="lane.cameras.length > 0">
+                        <div class="label">Camera trước</div>
+                        <div class="value">{{lane.cameras[0].name}}</div>
+                    </div>
+                    <div class="inline-infomation"  *ngIf="lane.cameras.length > 1">
+                        <div class="label">Camera sau</div>
+                        <div class="value">{{lane.cameras[1].name}}</div>
+                    </div>
+                    <div class="inline-infomation"  *ngIf="lane.multifunctionGates.length > 0">
+                        <div class="label">Cổng đa năng</div>
+                        <div class="value">{{lane.multifunctionGates[0].name}}</div>
+                    </div>
+                </nz-collapse-panel>
+                <ng-template #settingTemplate>
+                    <i nz-icon nzType="edit" (click)="editParkingLane(i, $event)"></i>
+                </ng-template>
+            </ng-container>
+        </nz-collapse>
+        <ng-template #noLanes>
+            <div class="w-full text-center my-5 text">
+                <span class="text-slate-300">Chưa cấu hình làn xe</span>
+            </div>
+        </ng-template>
+        <div class="button-group">
+            <button nz-button class="right-button">Xuất dữ liệu</button>
+            <button nz-button class="right-button">Nhập dữ liệu</button>
+            <button nz-button nzType="primary" class="right-button" (click)="addLane()">Thêm làn xe</button>
+        </div>
+       
+    </nz-collapse-panel>
+
+    <nz-collapse-panel nzHeader="Cài đặt chỗ đậu xe">
+        <div class="inline-infomation" *ngFor="let slot of parking.slotTypeConfigs">
+            <nz-table #slotTypeData [nzData]="parking.slotTypeConfigs">
+                <thead>
+                  <tr>
+                    <th><strong>Loại chỗ đậu xe</strong></th>
+                    <th><strong>Mô tả</strong></th>
+                    <th><strong>Số lượng</strong></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let data of slotTypeData.data">
+                    <td>{{data.slotType?.name}}</td>
+                    <td>{{data.slotType?.description}}</td>
+                    <td>{{data.quantity}}</td>
+                  </tr>
+                </tbody>
+            </nz-table>
+        </div>
+        <div class="w-full text-center my-5 text" *ngIf="parking.slotTypeConfigs.length <= 0">
+            <span class="text-slate-300">Chưa cài đặt chỗ đậu xe</span>
+        </div>
+        <div class="button-group">
+            <button nz-button class="right-button">Xuất dữ liệu</button>
+            <button nz-button class="right-button">Nhập dữ liệu</button>
+            <button nz-button nzType="primary" class="right-button" (click)="addSlotConfig()">Thêm chỗ đậu xe</button>
+        </div>
+    </nz-collapse-panel>
+</nz-collapse>

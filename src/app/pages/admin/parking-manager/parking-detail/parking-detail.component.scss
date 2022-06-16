@@ -1,0 +1,28 @@
+.common-info {
+    nz-form-label {
+        flex: 0 0 200px;
+    }
+}
+.right-button {
+    margin-left: 12px; 
+    margin-right: 0;
+}
+.button-group {
+    display: flex;
+    justify-content: flex-end;
+}
+
+nz-collapse {
+    margin-bottom: 24px;
+}
+
+.inline-infomation{
+    display: flex;
+    .label {
+        margin-right: 20px;
+        flex: 0 0 100px;
+    }
+    .value {
+        flex: 1;
+    }
+}

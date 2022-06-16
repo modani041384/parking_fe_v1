@@ -1,0 +1,25 @@
+<form nz-form [formGroup]="addParkingForm">
+    <nz-form-item>
+      <nz-form-label [nzSpan]="6" nzFor="name">Tên bãi xe</nz-form-label>
+      <nz-form-control [nzSpan]="14">
+        <input nz-input name="name" type="text" id="name" formControlName="name">
+      </nz-form-control>
+    </nz-form-item >
+    <nz-form-item>
+      <nz-form-label [nzSpan]="6" nzFor="address">Địa chỉ</nz-form-label>
+      <nz-form-control [nzSpan]="14">
+        <input nz-input name="address" type="text" id="address" formControlName="address">
+      </nz-form-control>
+    </nz-form-item >
+    <nz-form-item>
+      <nz-form-label [nzSpan]="6" nzFor="area">Khu vực</nz-form-label>
+      <nz-form-control [nzSpan]="14">
+        <input nz-input name="area" type="text" id="area" formControlName="area">
+      </nz-form-control>
+    </nz-form-item >
+</form>
+
+<div *nzModalFooter>
+    <button nz-button nzType="default" (click)="closeModal()">Huỷ</button>
+    <button nz-button nzType="primary" [nzLoading]="isConfirmLoading" (click)="saveParking()">Thêm</button>
+</div>

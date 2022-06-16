@@ -1,0 +1,56 @@
+<div class="flex-container full-width">
+    <div class="search-panel">
+        <nz-input-group nzSearch [nzAddOnAfter]="suffixIconButton" [nzAddOnBefore]="prefixTitle" >
+            <input type="text" nz-input placeholder="Nhập tên để tìm kiếm" 
+                *ngIf="cameraSearchModel.filter"
+                [(ngModel)]="cameraSearchModel.filter.q"/>
+        </nz-input-group>
+        <ng-template #suffixIconButton>
+            <button nz-button nzType="primary" nzSearch (click)="search()"><i nz-icon nzType="search"></i></button>
+        </ng-template>
+        <ng-template #prefixTitle>
+            <span>Tên camera</span>
+        </ng-template>
+    </div>
+    <div class="status-panel" *ngIf="deviceStatus && cameraSearchModel.filter && cameraSearchModel.filter.status">
+        <nz-tag *ngFor="let tag of deviceStatus" nzMode="checkable"
+            [nzChecked]="cameraSearchModel.filter.status.indexOf(tag.deviceStatusId) > -1" 
+            (nzCheckedChange)="onDeviceStatusCheckChange($event, tag)">
+            {{tag.description}}
+        </nz-tag> 
+    </div>
+</div>
+<nz-table #basicTable [nzData]="cameraList">
+    <thead>
+      <tr>
+        <th><strong>Tên camera</strong></th>
+        <th><strong>Tên server</strong></th>
+        <th><strong>Làn xe</strong></th>
+        <th><strong>Bãi xe</strong></th>
+        <th><strong>Trạng thái</strong></th>
+        <th><strong></strong></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of basicTable.data">
+        <td>{{data.name}}</td>
+        <td>{{data.serverName}}</td>
+        <td>{{data.parkingLaneName}}</td>
+        <td>{{data.parkingName}}</td>
+        <td>{{data.status}}</td>
+        <td></td>
+        <td>
+          <a>Action 一 {{data.name}}</a>
+          <nz-divider nzType="vertical"></nz-divider>
+          <a>Delete</a>
+        </td>
+      </tr>
+    </tbody>
+</nz-table>
+
+<div class="button-group">
+    <button nz-button nz-dropdown nzType="primary" (click)="showCameraDetailModel()">
+        <i nz-icon nzType="plus"></i>
+            Thêm bãi xe
+      </button>
+</div>

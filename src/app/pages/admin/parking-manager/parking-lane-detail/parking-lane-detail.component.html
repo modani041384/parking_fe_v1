@@ -1,0 +1,41 @@
+<form nz-form [formGroup]="parkingLaneForm">
+    <nz-form-item>
+        <nz-form-label [nzSpan]="6" nzFor="name">Tên làn xe</nz-form-label>
+        <nz-form-control [nzSpan]="14">
+            <input nz-input name="name" type="text" id="name" formControlName="name">
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+        <nz-form-label [nzSpan]="6" nzFor="address">Camera trước</nz-form-label>
+        <nz-form-control [nzSpan]="14">
+            <nz-select nzMode="default" nzPlaceHolder="Chọn Camera" formControlName="frontCameraId">
+                <nz-option *ngFor="let option of listOfCameras" [nzLabel]="option.name" [nzValue]="option.id">
+                </nz-option>
+            </nz-select>
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+        <nz-form-label [nzSpan]="6" nzFor="address">Camera sau</nz-form-label>
+        <nz-form-control [nzSpan]="14">
+            <nz-select nzMode="default" nzPlaceHolder="Chọn camera" formControlName="backCameraId">
+                <nz-option *ngFor="let option of listOfCameras" [nzLabel]="option.name" [nzValue]="option.id">
+                </nz-option>
+            </nz-select>
+        </nz-form-control>
+    </nz-form-item>
+    
+    <nz-form-item>
+        <nz-form-label [nzSpan]="6" nzFor="address">Cổng đa năng</nz-form-label>
+        <nz-form-control [nzSpan]="14">
+            <nz-select nzMode="default" nzPlaceHolder="Chọn cổng đa năng" formControlName="multiGateId">
+                <nz-option *ngFor="let option of listOfMultigates" [nzLabel]="option.name" [nzValue]="option.mfgId">
+                </nz-option>
+            </nz-select>
+        </nz-form-control>
+    </nz-form-item> 
+</form>
+
+<div *nzModalFooter>
+    <button nz-button nzType="default" (click)="closeModal()">Huỷ</button>
+    <button nz-button nzType="primary" (click)="saveParkingLane()">{{confirmButtonLabel}}</button>
+</div>

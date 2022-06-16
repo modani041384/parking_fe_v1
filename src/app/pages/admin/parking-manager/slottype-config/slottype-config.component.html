@@ -1,0 +1,26 @@
+<form nz-form [formGroup]="slotTypeConfigForm">
+    <nz-form-item>
+        <nz-form-label [nzSpan]="6" nzFor="address">Loại chỗ đậu xe</nz-form-label>
+        <nz-form-control [nzSpan]="14">
+            <nz-select nzMode="default" nzPlaceHolder="Chỗ đậu xe" formControlName="slotTypeId">
+                <nz-option *ngFor="let option of slotTypeList" [nzValue]="option.slotTypeId"
+                [nzCustomContent]="true" [nzLabel]="option.name">
+                    <div class="title">{{option.name}}</div>
+                    <div class="description">{{option.description}}</div>
+                </nz-option>
+            </nz-select>
+        </nz-form-control>
+    </nz-form-item> 
+    <nz-form-item>
+        <nz-form-label [nzSpan]="6" nzFor="address">Số lượng</nz-form-label>
+        <nz-form-control [nzSpan]="14">
+            
+    <nz-input-number [nzMin]="0"[nzStep]="1" formControlName="quantity"></nz-input-number>
+        </nz-form-control>
+    </nz-form-item>  
+</form>
+
+<div *nzModalFooter>
+    <button nz-button nzType="default" (click)="closeModal()">Huỷ</button>
+    <button nz-button nzType="primary" (click)="saveSlottypeConfig()">{{confirmButtonLabel}}</button>
+</div>

@@ -1,0 +1,55 @@
+<div class="flex-container full-width">
+    <div class="search-panel">
+        <nz-input-group nzSearch [nzAddOnAfter]="suffixIconButton" [nzAddOnBefore]="prefixTitle" >
+            <input type="text" nz-input placeholder="Nhập tên để tìm kiếm" />
+        </nz-input-group>
+        <ng-template #suffixIconButton>
+            <button nz-button nzType="primary" nzSearch><i nz-icon nzType="search"></i></button>
+        </ng-template>
+        <ng-template #prefixTitle>
+            <span>Tên bãi xe</span>
+        </ng-template>
+
+        <nz-input-group  [nzAddOnBefore]="prefixAreaTitle" >
+            <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Chọn khu vực" [(ngModel)]="selectedArea">
+                <nz-option *ngFor="let area of areas" [nzLabel]="area" [nzValue]="area"></nz-option>
+              </nz-select>
+        </nz-input-group>
+        
+        <ng-template #prefixAreaTitle>
+            <span>Khu vực</span>
+        </ng-template>
+        
+    </div>
+    <div class="button-group">
+        <button nz-button nz-dropdown nzType="primary" (click)="showAddParkingModal()">
+            <i nz-icon nzType="plus"></i>
+                Thêm bãi xe
+          </button>
+    </div>
+</div>
+<nz-table #basicTable [nzData]="dataSet">
+    <thead>
+      <tr>
+        <th><strong>Tên bãi xe</strong></th>
+        <th><strong>Địa chỉ</strong></th>
+        <th><strong>Khu vực</strong></th>
+        <th><strong>Số làn xe</strong></th>
+        <th><strong>Số chỗ gửi xe</strong></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of basicTable.data">
+        <td>{{data.name}}</td>
+        <td>{{data.address}}</td>
+        <td>{{data.area}}</td>
+        <td>{{data.parkingLanes.length}}</td>
+        <td>{{data.slotTypeConfigs.length}}</td>
+        <td>
+          <a>Action 一 {{data.name}}</a>
+          <nz-divider nzType="vertical"></nz-divider>
+          <a>Delete</a>
+        </td>
+      </tr>
+    </tbody>
+</nz-table>
